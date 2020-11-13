@@ -32,7 +32,7 @@
         </v-form>
         <v-row>
           <v-col cols="9">
-            <v-btn dark color="indigo">Log In</v-btn>
+            <v-btn to="dashboard" dark color="indigo">Log In</v-btn>
           </v-col>
           <v-col>
             <v-btn to="signup" color="green" dark>Sign Up</v-btn>

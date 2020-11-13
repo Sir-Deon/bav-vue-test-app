@@ -1,19 +1,20 @@
 <template>
   <div>
       <NavBar/>
-      <Product/>
+      <Create/>
   </div>
 </template>
 
 <script>
 
-import NavBar from "@/components/navbar"
-import Product from "@/components/product"
+import NavBar from "@/components/navbar";
+import Create from "@/components/create";
 export default {
-    name: "dashboard",
+    name: "createProduct",
     components:{
         NavBar,
-        Product
+        Create
+        
     }
 
 }

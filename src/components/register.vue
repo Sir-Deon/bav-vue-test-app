@@ -45,7 +45,7 @@
         </v-form>
         <v-row>
           <v-col>
-            <v-btn dark color="indigo">Sign Up</v-btn>
+            <v-btn to="dashboard" dark color="indigo">Sign Up</v-btn>
           </v-col>
            <v-col>
             <v-btn to="/" color="green" dark>Already have an account?</v-btn>
