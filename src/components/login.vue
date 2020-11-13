@@ -13,6 +13,7 @@
           <v-text-field
             color="indigo"
             label="Email"
+            v-model="email"
             prepend-icon="mdi-email"
             required
           ></v-text-field>
@@ -32,7 +33,7 @@
         </v-form>
         <v-row>
           <v-col cols="9">
-            <v-btn to="dashboard" dark color="indigo">Log In</v-btn>
+            <v-btn @click="login" dark color="indigo">Log In</v-btn>
           </v-col>
           <v-col>
             <v-btn to="signup" color="green" dark>Sign Up</v-btn>
@@ -44,6 +45,7 @@
 </template>
 
 <script>
+import firebase from "firebase";
 export default {
   name: "login",
   data() {
@@ -53,6 +55,7 @@ export default {
       show3: false,
       show4: false,
       password: "",
+      email:"",
       rules: {
         required: (value) => !!value || "Required.",
         min: (v) => v.length >= 8 || "Min 8 characters",
@@ -60,6 +63,19 @@ export default {
       },
     };
   },
+  methods:{
+    login(){
+      firebase.auth().signInWithEmailAndPassword(this.email, this.password).then(
+        user => {
+          console.log(user.data);
+          this.$router.push("/dashboard");
+        },
+        err =>{
+          alert(err)
+        }
+      )
+    }
+  }
 };
 </script>
 

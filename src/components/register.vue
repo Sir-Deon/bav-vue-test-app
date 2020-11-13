@@ -15,9 +15,10 @@
             label="Email"
             prepend-icon="mdi-email"
             required
+            v-model="email"
           ></v-text-field>
           <v-text-field
-            v-model="password"
+            v-model="password1"
             color="indigo"
             :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
             prepend-icon="mdi-lock"
@@ -29,8 +30,8 @@
             counter
             @click:append="show1 = !show1"
           ></v-text-field>
-           <v-text-field
-            v-model="password"
+          <v-text-field
+            v-model="password2"
             color="indigo"
             :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
             prepend-icon="mdi-lock"
@@ -45,9 +46,9 @@
         </v-form>
         <v-row>
           <v-col>
-            <v-btn to="dashboard" dark color="indigo">Sign Up</v-btn>
+            <v-btn @click="register" dark color="indigo">Sign Up</v-btn>
           </v-col>
-           <v-col>
+          <v-col>
             <v-btn to="/" color="green" dark>Already have an account?</v-btn>
           </v-col>
         </v-row>
@@ -57,21 +58,41 @@
 </template>
 
 <script>
+import firebase from "firebase";
 export default {
   name: "register",
   data() {
     return {
+      email: "",
+      password1: "",
+      password2: "",
       show1: false,
       show2: true,
       show3: false,
       show4: false,
-      password: "",
       rules: {
         required: (value) => !!value || "Required.",
         min: (v) => v.length >= 8 || "Min 8 characters",
         emailMatch: () => `The email and password you entered don't match`,
       },
     };
+  },
+  methods: {
+    register() {
+      if(this.password1 == this.password2){
+        firebase.auth().createUserWithEmailAndPassword(this.email, this.password2).then(
+        user => {
+          console.log(user.data);
+        },
+        err =>{
+          alert(err)
+        }
+      )
+      }
+      else{
+        alert("Wrong email or password")
+      }
+    },
   },
 };
 </script>

@@ -1,10 +1,10 @@
 <template>
   <v-container>
-    <v-row justify="space-around">
+    <v-row>
       <v-card width="400">
         <v-img
           height="200px"
-          src="https://cdn.pixabay.com/photo/2020/07/12/07/47/bee-5396362_1280.jpg"
+          src="https://business.bridgeafrica.info/assets/img/portfolio/media2.png"
         >
           <v-app-bar flat color="rgba(0, 0, 0, 0)">
             <v-spacer></v-spacer>
@@ -40,10 +40,13 @@
           </v-app-bar>
         </v-img>
 
-        <v-card-text>
-          <div class="font-weight-bold ml-8 mb-2">
-            Today
-          </div>
+        <v-card-text
+          ><v-row>
+            <div class="font-weight-bold ml-8 mb-2">
+              {{name}}
+            </div>
+            <p class="font-weight-bold ml-8 mb-2 green--text">{{price}} FCFA</p>
+          </v-row>
         </v-card-text>
       </v-card>
     </v-row>
@@ -52,7 +55,7 @@
 <script>
 export default {
   name: "product",
-  props: ["id", "image", "name", "Price"],
+  props: ["id", "image", "name", "price"],
   data: () => ({
     links: [
       { icon: "mdi-pencil", text: "Edit", route: "/createproduct" },
