@@ -21,12 +21,20 @@ firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 db.settings({timestampsInSnapshots: true})
 
-
 Vue.config.productionTip = false;
 
-new Vue({
-  router,
-  store,
-  vuetify,
-  render: h => h(App)
-}).$mount("#app");
+let app = '';
+
+firebase.auth().onAuthStateChanged(() =>{
+  if(!app){
+    new Vue({
+      router,
+      store,
+      vuetify,
+      render: h => h(App)
+    }).$mount("#app");
+    
+  }
+});
+
+

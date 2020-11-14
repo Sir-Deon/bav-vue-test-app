@@ -12,7 +12,7 @@
               mdi-account-circle
             </v-icon>
           </v-avatar>
-          John Doe
+          {{email}}
         </v-toolbar-title>
 
         <v-spacer></v-spacer>
@@ -33,21 +33,40 @@
           </v-list-item>
         </v-list>
       </v-menu>
+      <v-btn depressed @click="logOut">
+        <v-icon color="red">
+          mdi-logout
+        </v-icon>
+        Log Out</v-btn>
       </v-toolbar>
     </v-card>
   </v-card>
 </template>
 <script>
+import firebase from "firebase"
 export default {
   name: "navBar",
   data: () =>({
+       email: null,
        links: [
         { text: "Create Product", route: "/createproduct" },
         { text: "Products", route: "/dashboard"},
         { text: "Product list", route: "/productlist" },
-        { text: "Log Out", route: "/projects" },
       ],
-  })
+  }),
+  methods:{
+    logOut(){
+      firebase.auth().signOut().then(() => {
+        this.$router.replace('/')
+      }).catch((err) => {
+        alert("Error loging out", err)
+      })
+    } 
+  },
+  mounted(){
+      var user = firebase.auth().currentUser;
+      this.email = user.email;
+  }
 };
 </script>
 

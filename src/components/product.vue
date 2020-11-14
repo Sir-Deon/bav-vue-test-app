@@ -29,7 +29,7 @@
                   :to="link.route"
                 >
                   <v-list-item-icon>
-                    <v-icon>{{ link.icon }}</v-icon>
+                    <v-icon :color="link.color">{{ link.icon }}</v-icon>
                   </v-list-item-icon>
                   <v-list-item-title>
                     {{ link.text }}
@@ -58,8 +58,8 @@ export default {
   props: ["id", "image", "name", "price"],
   data: () => ({
     links: [
-      { icon: "mdi-pencil", text: "Edit", route: "/createproduct" },
-      { icon: "mdi-delete", text: "Delete", route: "/dashboard" },
+      { icon: "mdi-pencil", text: "Edit", route: "/productlist" , color: 'primary'},
+      { icon: "mdi-delete", text: "Delete", route: "/productlist", color: 'red'},
     ],
   }),
 };

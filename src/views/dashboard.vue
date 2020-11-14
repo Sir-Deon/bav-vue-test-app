@@ -29,9 +29,6 @@ export default {
     }),
     mounted(){
      const db = firebase.firestore();
-     db.settings({timestampsInSnapshots: true})
-
-
     db.collection('Products').get().then((snapshot) => {
         snapshot.docs.forEach(doc => {
       
