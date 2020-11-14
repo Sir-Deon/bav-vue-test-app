@@ -12,6 +12,13 @@
         <v-form>
           <v-text-field
             color="indigo"
+            label="Username"
+            prepend-icon="mdi-account"
+            required
+            v-model="username"
+          ></v-text-field>
+          <v-text-field
+            color="indigo"
             label="Email"
             prepend-icon="mdi-email"
             required
@@ -63,6 +70,7 @@ export default {
   name: "register",
   data() {
     return {
+      username: "",
       email: "",
       password1: "",
       password2: "",
@@ -79,18 +87,34 @@ export default {
   },
   methods: {
     register() {
-      if(this.password1 == this.password2){
-        firebase.auth().createUserWithEmailAndPassword(this.email, this.password2).then(
-        user => {
-          console.log(user.data);
-        },
-        err =>{
-          alert(err)
+      if (this.email != "" && this.password1 != "" && this.password2 != "") {
+        if (this.password1 == this.password2) {
+          firebase
+            .auth()
+            .createUserWithEmailAndPassword(this.email, this.password2)
+            .then(
+              (user) => {
+                const db = firebase.firestore();
+                db.collection("profiles")
+                  .doc(user.user.uid).set({
+                    name: this.username
+                  })
+                  .then(() => {
+                      console.log("User successfully created !!");
+                  }).catch((err) =>{
+                    alert("Error creating Account", err)
+                  });
+                this.$router.replace("/dashboard");
+              },
+              (err) => {
+                alert(err);
+              }
+            );
+        } else {
+          alert("Passwords do not match!!");
         }
-      )
-      }
-      else{
-        alert("Wrong email or password")
+      } else {
+        alert("All fields are required !!");
       }
     },
   },
@@ -110,7 +134,9 @@ export default {
   margin-top: 50px;
   font-size: 3em;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  color: indigo;
+  color: white;
+  background-color: indigo;
+  width: 100%;
 }
 .heading {
   text-align: center;

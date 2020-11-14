@@ -65,15 +65,18 @@ export default {
   },
   methods:{
     login(){
-      firebase.auth().signInWithEmailAndPassword(this.email, this.password).then(
-        user => {
-          console.log(user.data);
+     if(this.password != "" && this.email != ""){
+        firebase.auth().signInWithEmailAndPassword(this.email, this.password).then(
+        () => {
           this.$router.push("/dashboard");
         },
         err =>{
-          alert(err)
+          alert("Invalid email or password",err)
         }
       )
+     }else {
+       alert("Email or  password field should not be empty!!")
+     }
     }
   }
 };
@@ -92,7 +95,9 @@ export default {
   margin-top: 50px;
   font-size: 3em;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  color: indigo;
+  color: white;
+  background-color: indigo;
+  width: 100%;
 }
 .heading {
   text-align: center;
